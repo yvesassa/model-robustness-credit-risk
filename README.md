@@ -1,64 +1,118 @@
 # Credit Default Risk – Model Robustness Evaluation
 
-**Collaborators:** Yves Assali & Lucas Doan  
-**Program:** McGill University, Master of Management in Analytics  
-**Industry Partner:** Synechron  
-**Date:** July 2025  
+This repository contains the complete implementation of our research and applied analytics project on **model robustness evaluation** in the context of **credit default risk prediction**. Developed as part of the McGill University Master of Management in Analytics program, in collaboration with **Synechron**, the project explores how machine learning models behave under real-world uncertainty and adversarial threats.
 
-## Overview
+## Project Objective
 
-This project investigates the stability of machine learning models for credit default prediction under real-world uncertainty and adversarial threats. We compare a TabNet deep-learning model and an XGBoost tree-based model, identify their weaknesses on the minority (defaulter) class, and apply a suite of robustness techniques to measure and improve performance.
-
-## Objectives
-
-- **Assess baseline performance** of TabNet and XGBoost on an imbalanced credit dataset  
-- **Quantify sensitivity** to input variability, feature shifts, and adversarial attacks  
-- **Develop a reusable toolkit** to automate robustness evaluation in any ML pipeline  
+To assess and improve the robustness of credit risk models by simulating data variability and adversarial conditions. Our goal was to identify weaknesses in model performance—particularly on the minority class (defaulters)—and evaluate how various defense techniques affect metrics such as AUC, recall, and F1-score under stress.
 
 ## Key Contributions
 
-- **End-to-end pipeline** for credit default classification  
-- **Robustness techniques** implemented:  
-  - SMOTE oversampling  
+- End-to-end credit default classification pipeline using **TabNet** and **XGBoost**
+- Integration of **robustness evaluation techniques**:
   - Gaussian noise injection  
   - Covariate perturbations  
-  - Adversarial attacks (L₀, L₂, FGSM, loss-based)  
-- **Modular Python toolkit** (`model_robustness_eval.py`) for rapid integration  
-- **Comparative analysis** of AUC, recall, and F1 degradation under stress  
+  - Adversarial attacks: L₀, L₂, FGSM, and loss-based  
+- Development of a **modular Python toolkit** for robustness testing
+- Comparative analysis of model sensitivity, class recall, and AUC degradation
+- Full documentation and one-page executive summary for stakeholders
 
-## Methodology
+## Repository Structure
 
-1. **Data Preparation:**  
-   • Home Credit dataset (≈300 K records, 100+ features)  
-   • ID removal, missing-value imputation, one-hot encoding, outlier filtering  
-2. **Baseline Training:**  
-   • TabNet: 92% accuracy, AUC 0.77, recall 2% on defaulters  
-   • XGBoost: strong majority-class metrics, recall 5%  
-3. **Robustness Evaluation:**  
-   • Apply noise, perturbations, and adversarial scenarios  
-   • Record performance drops and recovery after defense techniques  
+```
+.
+├── Deep_Learning_Model__V5.ipynb         # Core notebook: training, testing, and robustness evaluations
+├── model_robustness_eval.py              # Python module: reusable robustness evaluation functions
+├── Executive_Summary.pdf                 # Visual one-pager summarizing key findings and deliverables
+├── Model_Robustness_Presentation.pdf     # Final presentation (client-ready)
+├── Model_Robustness_Documentation.pdf    # Full documentation of techniques and results
+```
 
-## Results Highlights
+## Models Implemented
 
-| Model    | AUC (Base) | AUC (Under L₀) | Recall (Base) | Recall (Improved) |
-|----------|------------|----------------|---------------|-------------------|
-| TabNet   | 0.77       | 0.66           | 2%            | 66%               |
-| XGBoost  | 0.75       | 0.63           | 5%            | 22%               |
+### 1. TabNet (Deep Learning)
+- Initial accuracy: 92%, AUC: 0.77  
+- Weak Class 1 recall (2%) improved to 66% using SMOTE + noise injection  
+- Showed stronger resilience under L₀ loss-based attacks
 
-- **TabNet + SMOTE + noise** yielded the greatest recall improvement.  
-- **L₀ loss-based attacks** were the most challenging for both models.  
+### 2. XGBoost (Tree-based)
+- Solid baseline metrics on majority class  
+- Class 1 recall improved marginally (5% → 22%) with SMOTE  
+- More sensitive to adversarial and covariate attacks compared to TabNet
 
-## Content
+## Techniques Implemented
 
-- **Jupyter Notebook** (`Deep_Learning_Model__V5.ipynb`)  
-- **Python toolkit** (`model_robustness_eval.py`)  
-- **Executive summary**, presentation slides, and full documentation  
+| Technique               | Purpose                                |
+|-------------------------|----------------------------------------|
+| SMOTE                   | Balance class distribution             |
+| Gaussian Noise          | Simulate real-world feature variability|
+| Covariate Perturbation  | Test model response to feature shift   |
+| L₀ / L₂ Attacks         | Sparse or bounded adversarial tests    |
+| FGSM                    | Gradient-based attack simulation       |
+| Loss-based Attack       | Targeted model destabilization         |
+
+## How to Use
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yvesassa/model-robustness-credit-risk.git
+cd model-robustness-credit-risk
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+If `requirements.txt` is missing, manually install:
+
+```bash
+pip install pandas numpy matplotlib scikit-learn xgboost torch pytorch-tabnet
+```
+
+### 3. Run Notebook
+
+Use Jupyter, VS Code, or Google Colab to open and run:
+
+```bash
+Deep_Learning_Model__V5.ipynb
+```
+
+### 4. Reuse the Evaluation Module
+
+Import and call functions from `model_robustness_eval.py` in your own scripts:
+
+```python
+from model_robustness_eval import evaluate_adversarial_attack
+```
+
+All functions are documented and ready for direct use.
+
+## Results Summary
+
+| Model     | AUC (Baseline) | AUC (L₀ Attack) | Recall (Baseline) | Recall (Improved) |
+|-----------|----------------|-----------------|--------------------|-------------------|
+| TabNet    | 0.77           | 0.66            | 2%                 | 66%               |
+| XGBoost   | 0.75           | 0.63            | 5%                 | 22%               |
+
+## Deliverables
+
+- Robustness evaluation module for external use  
+- Executive summary for decision-makers  
+- Final presentation (shared with client)  
+- All code and documentation in one structured repo  
+
+## Team
+
+**Yves Assali**  
+**Lucas Doan**  
+McGill University – Desautels Faculty of Management  
+Master of Management in Analytics
 
 
-## Team & Acknowledgements
+## Acknowledgements
 
-**Yves Assali** & **Lucas Doan**  
-McGill Desautels Faculty of Management  
-Special thanks to Synechron and McGill MMA faculty for guidance.
-
-
+Special thanks to **Synechron** for their industry guidance and to the McGill MMA faculty for academic mentorship.  
+We also acknowledge open-source tools such as TabNet, XGBoost, PyTorch, and scikit-learn that made this project possible.
