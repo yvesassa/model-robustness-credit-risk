@@ -48,19 +48,11 @@ This project investigates the stability of machine learning models for credit de
 - **TabNet + SMOTE + noise** yielded the greatest recall improvement.  
 - **L₀ loss-based attacks** were the most challenging for both models.  
 
-## Deliverables
+## Content
 
 - **Jupyter Notebook** (`Deep_Learning_Model__V5.ipynb`)  
 - **Python toolkit** (`model_robustness_eval.py`)  
 - **Executive summary**, presentation slides, and full documentation  
-
-## Repository Structure
-
-├── Deep_Learning_Model__V5.ipynb
-├── model_robustness_eval.py
-├── Executive_Summary.pdf
-├── Model_Robustness_Presentation.pdf
-├── Model_Robustness_Documentation.pdf
 
 
 ## Team & Acknowledgements
